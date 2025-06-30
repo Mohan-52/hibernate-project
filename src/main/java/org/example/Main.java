@@ -4,8 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.Arrays;
+import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -20,7 +22,7 @@ public class Main {
 
         Laptop l2=new Laptop();
         l2.setId(2);
-        l2.setBrand("Apple");
+        l2.setBrand("Asus");
         l2.setModel("Mac Book Pro");
         l2.setRam(32);
 
@@ -63,9 +65,18 @@ public class Main {
 
         transaction.commit();
 
-        Student std= session.find(Student.class,102);
-        System.out.println(std);
+//        Query namedQuery=session.createNamedQuery("find_laptop_by_brand", Laptop.class);
+//
+//        namedQuery.setParameter("brandName","Asus");
+//
+//        List<Laptop> laptops=namedQuery.getResultList();
 
+        Query<Laptop> findByRam = session.createQuery("FROM Laptop WHERE ram > :ram", Laptop.class);
+        findByRam.setParameter("ram", 10);
+        List<Laptop> laptops = findByRam.getResultList();
+
+
+        System.out.println(laptops);
 
         session.close();
         sf.close();

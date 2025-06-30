@@ -2,8 +2,13 @@ package org.example;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(
+        name ="find_laptop_by_brand",
+        query = "FROM Laptop WHERE brand=:brandName"
+)
 public class Laptop {
 
     @Id
