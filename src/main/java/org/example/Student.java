@@ -24,7 +24,6 @@ public class Student {
     public void setLaptops(List<Laptop> laptops) {
         this.laptops = laptops;
     }
-
     public int getRollNo() {
         return rollNo;
     }
